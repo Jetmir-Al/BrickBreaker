@@ -1,8 +1,16 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hellow java");
+        JFrame obj = new JFrame();
+        Gameplay gameplay = new Gameplay();
+
+        obj.setBounds(10, 10, 700, 600);
+        obj.setTitle("Wall Breaker!");
+        obj.setResizable(false);
+        obj.setVisible(true);
+        obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        obj.add(gameplay);
     }
 }
