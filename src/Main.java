@@ -6,7 +6,7 @@ public class Main {
         JFrame obj = new JFrame();
         Gameplay gameplay = new Gameplay();
 
-        obj.setBounds(10, 10, 700, 600);
+        obj.setBounds(10, 10, 692, 592);
         obj.setTitle("Wall Breaker!");
         obj.setResizable(false);
         obj.setVisible(true);
