@@ -14,7 +14,7 @@ public class MapGenerator {
         }
 
         brickH = 150/row;
-        brickW = 540/row;
+        brickW = 540/col;
     }
 
     public void draw(Graphics2D g){
@@ -30,5 +30,8 @@ public class MapGenerator {
                 }
             }
         }
+    }
+    public void setBrickVal(int val, int row, int col){
+        map[row][col] = val;
     }
 }

@@ -15,7 +15,7 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private Timer timer;
     private int delay = 8;
     private int playerX = 310;
-    private int ballPosX = 120;
+    private int ballPosX = 310;
     private int ballPosY = 350;
     private int ballXdirection = -1;
     private int ballYdirection = -2;
@@ -42,13 +42,44 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         g.fillRect(0, 0, 692, 3);
         g.fillRect(691, 0, 3, 592);
 
+//        user block
         g.setColor(Color.green);
         g.fillRect(playerX, 550, 100, 8);
+
+//        score
+        g.setColor(Color.white);
+        g.setFont(new Font("serif", Font.BOLD, 25));
+        g.drawString("Score: " + score, 562, 25);
 
         // ball
         g.setColor(Color.yellow);
         g.fillOval(ballPosX, ballPosY, 20, 20);
 
+        if (totalBricks <= 0){
+            play = false;
+            ballYdirection = 0;
+            ballXdirection = 0;
+            g.setColor(Color.RED);
+            g.setFont(new Font("serif", Font.BOLD, 30));
+            g.drawString("You won!, Score: " + score, 190, 300);
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("serif", Font.BOLD, 20));
+            g.drawString("Press Enter to Restart", 230, 350);
+        }
+
+        if (ballPosY > 570){
+            play = false;
+            ballYdirection = 0;
+            ballXdirection = 0;
+            g.setColor(Color.RED);
+            g.setFont(new Font("serif", Font.BOLD, 30));
+            g.drawString("Game Over, Score: " + score, 190, 300);
+
+            g.setColor(Color.WHITE);
+            g.setFont(new Font("serif", Font.BOLD, 20));
+            g.drawString("Press Enter to Restart", 230, 350);
+        }
 
 
         g.dispose();
@@ -61,6 +92,35 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
             if (new Rectangle(ballPosX, ballPosY, 20, 20).intersects(new Rectangle(playerX, 550, 100, 8))){
                 ballYdirection = -ballYdirection;
+            }
+
+            for (int i = 0; i<map.map.length; i++){
+                for (int j = 0; j<map.map[0].length; j++){
+                    if (map.map[i][j] > 0){
+                        int brickX = j * map.brickW + 80;
+                        int brickY = i * map.brickH + 50;
+                        int brickWidth = map.brickW;
+                        int brickHeight = map.brickH;
+
+                        Rectangle rect = new Rectangle(brickX, brickY, brickWidth, brickHeight);
+                        Rectangle ballRect = new Rectangle(ballPosX, ballPosY, 20, 20);
+                        Rectangle brickRect = rect;
+                        if (ballRect.intersects(brickRect)){
+                            map.setBrickVal(0, i, j);
+                            totalBricks--;
+                            score += 5;
+
+                            if (ballPosX + 19 <= brickRect.x || ballPosX + 1 >= brickRect.x + brickRect.width){
+                                ballXdirection = -ballXdirection;
+                            }else {
+                                ballYdirection = -ballYdirection;
+                            }
+                        break;
+                        }
+
+
+                    }
+                }
             }
 
             ballPosX += ballXdirection;
@@ -85,11 +145,6 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
             if (playerX >= 600){
                 playerX = 600;
@@ -106,6 +161,25 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
                 moveLeft();
             }
         }
+
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            if (!play){
+                play = true;
+                ballPosX = 120;
+                ballPosY = 350;
+                ballXdirection = -1;
+                ballYdirection = -2;
+                playerX = 310;
+                score = 0;
+                totalBricks = 21;
+                map = new MapGenerator(3, 7);
+                repaint();
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
     }
 
     private void moveRight() {
