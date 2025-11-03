@@ -13,7 +13,8 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
     private int col = 7;
     private int row = 3;
     private int totalBricks = 21;
-    private int nextLevelBricks = 21;
+    private int nextlevelBricks = 21;
+    private int lvl = 1;
 
     private Timer timer;
     private int delay = 8;
@@ -181,15 +182,19 @@ public class Gameplay extends JPanel implements KeyListener, ActionListener {
         } else if (e.getKeyCode() == KeyEvent.VK_ENTER && totalBricks == 0) {
             if (!play){
                 play = true;
-                ballPosX = 120;
-                ballPosY = 350;
-                ballXdirection = -1;
-                ballYdirection = -2;
-                playerX = 310;
-                score = 0;
-                totalBricks = nextLevelBricks * 2;
-                map = new MapGenerator(row * 2, col * 2);
-                repaint();
+//                this doesnt work so use if statments in the menu
+                lvl++;
+                if (lvl != 1){
+                    ballPosX = 120;
+                    ballPosY = 350;
+                    ballXdirection = -1;
+                    ballYdirection = -2;
+                    playerX = 310;
+                    score = 0;
+                    totalBricks = nextlevelBricks * lvl;
+                    map = new MapGenerator(row + lvl, col + lvl);
+                    repaint();
+                }
             }
         }
     }
