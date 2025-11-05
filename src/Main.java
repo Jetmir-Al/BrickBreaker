@@ -1,6 +1,6 @@
 import javax.swing.*;
 
-public class Main {
+public class Main extends Lvl{
     public static void main(String[] args) {
 
         JFrame obj = new JFrame();
