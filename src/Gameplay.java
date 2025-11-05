@@ -8,10 +8,10 @@ import java.awt.event.KeyListener;
 
 public class Gameplay extends  JPanel implements KeyListener, ActionListener {
     private boolean play = false;
-    private  int score = 0;
+    private int score = 0;
     private int lvl = 1;
     private int row;
-    private  int col;
+    private int col;
     private int totalBricks;
 
 
@@ -20,8 +20,9 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
     private int playerX = 310;
     private int ballPosX = 310;
     private int ballPosY = 350;
-    private int ballXdirection = -1;
-    private int ballYdirection = -2;
+    private double speedIncrease = 2;
+    private double ballXdirection = -2;
+    private double ballYdirection = -3;
 
     private MapGenerator map;
 
@@ -186,9 +187,12 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
                 play = true;
                 ballPosX = 120;
                 ballPosY = 350;
-                ballXdirection = -1;
-                ballYdirection = -2;
+                ballXdirection = -2;
+                ballYdirection = -3;
                 playerX = 310;
+                row = 3;
+                col = 7;
+                totalBricks = 21;
                 score = 0;
                 lvl = 1;
                 map = new MapGenerator(row, col);
@@ -200,25 +204,30 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
                 if (lvl == 2) {
                     row = 4;
                     col = 7;
+                    speedIncrease = 1.5;
                 } else if (lvl == 3) {
                     row = 4;
                     col = 8;
+                    speedIncrease = 2;
                 } else if (lvl == 4) {
                     row = 5;
                     col = 8;
+                    speedIncrease = 2.5;
+
                 }else if (lvl == 5) {
                     row = 6;
                     col = 8;
+                    speedIncrease = 3;
                 }
+                ballXdirection = -2 * speedIncrease;
+                ballYdirection = -3 * speedIncrease;
                 totalBricks = row * col;
                 ballPosX = 120;
-                    ballPosY = 350;
-                    ballXdirection = -1;
-                    ballYdirection = -2;
-                    playerX = 310;
-                    map = new MapGenerator(row, col);
-                    play = true;
-                    repaint();
+                ballPosY = 350;
+                playerX = 310;
+                map = new MapGenerator(row, col);
+                play = true;
+                repaint();
             }
         }
     }
