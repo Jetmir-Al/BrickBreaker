@@ -222,7 +222,7 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
                 ballXdirection = -2 * speedIncrease;
                 ballYdirection = -3 * speedIncrease;
                 totalBricks = row * col;
-                ballPosX = 120;
+                ballPosX = 310;
                 ballPosY = 350;
                 playerX = 310;
                 map = new MapGenerator(row, col);
