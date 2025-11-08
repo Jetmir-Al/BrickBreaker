@@ -22,7 +22,7 @@ public class Menu extends JFrame {
 
 
     public Menu() {
-        setTitle("Brick Breaker");
+        setTitle("Wall Breaker");
         setContentPane(panel1);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(700, 600);
@@ -124,7 +124,7 @@ public class Menu extends JFrame {
     }
 
     private void startGame(String userName) {
-        JFrame obj = new JFrame("Brick Breaker");
+        JFrame obj = new JFrame("Wall Breaker");
         Gameplay gameplay = new Gameplay(userName, obj);
 
         obj.setContentPane(gameplay);
