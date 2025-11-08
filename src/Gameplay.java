@@ -13,6 +13,8 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
     private int row;
     private int col;
     private int totalBricks;
+    private String userName;
+    private JFrame frame;
 
 
     private Timer timer;
@@ -26,7 +28,9 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
 
     private MapGenerator map;
 
-    public Gameplay(){
+    public Gameplay(String userName, JFrame frame){
+        this.userName = userName;
+        this.frame = frame;
         if(lvl == 1){
             row = 3;
             col = 7;
@@ -46,7 +50,7 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
         //map
         map.draw((Graphics2D)g);
 
-        g.setColor(Color.yellow);
+        g.setColor(Color.green);
         g.fillRect(0, 0, 3, 592);
         g.fillRect(0, 0, 692, 3);
         g.fillRect(691, 0, 3, 592);
@@ -61,7 +65,7 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
         g.drawString("Score: " + score, 562, 25);
 
         // ball
-        g.setColor(Color.yellow);
+        g.setColor(Color.green);
         g.fillOval(ballPosX, ballPosY, 20, 20);
 
         if (totalBricks == 0){
@@ -73,6 +77,7 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
             g.setColor(Color.GREEN);
             g.setFont(new Font("serif", Font.BOLD, 30));
             g.drawString("You won! Score: " + score, 190, 300);
+            UserManager.updateScore(userName, score);
             }else {
                 play = false;
                 ballYdirection = 0;
@@ -81,9 +86,9 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
                 g.setFont(new Font("serif", Font.BOLD, 30));
                 g.drawString("You beat this level: " + lvl, 190, 300);
 
-            g.setColor(Color.WHITE);
-            g.setFont(new Font("serif", Font.BOLD, 20));
-            g.drawString("Press Enter to continue!", 230, 350);
+                g.setColor(Color.WHITE);
+                g.setFont(new Font("serif", Font.BOLD, 20));
+                g.drawString("Press Enter to continue!", 230, 350);
             }
 
         }
@@ -165,6 +170,11 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE){
+            play = false;
+            frame.dispose();
+            new Menu();
+        }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT){
             if (playerX >= 600){
                 playerX = 600;
@@ -184,6 +194,7 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
 
         if(e.getKeyCode() == KeyEvent.VK_R && totalBricks != 0){
             if (!play){
+                UserManager.updateScore(userName, score);
                 play = true;
                 ballPosX = 120;
                 ballPosY = 350;

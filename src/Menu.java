@@ -2,6 +2,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -16,6 +17,8 @@ public class Menu extends JFrame {
     private JButton submitButton;
     private JTextField textField1;
     private JButton cancelButton;
+    private JLabel welcomeLabel;
+    private JButton scoreBoardButton;
 
 
     public Menu() {
@@ -26,10 +29,40 @@ public class Menu extends JFrame {
         setResizable(false);
         setLocationRelativeTo(null);
 
+//        colors
+        panel1.setBackground(Color.BLACK);
+        playAsGuestButton.setBackground(Color.WHITE);
+        playAsGuestButton.setFocusPainted(false);
+        playAsGuestButton.setBorderPainted(false);
+        playAsGuestButton.setForeground(Color.BLACK);
+
+        registerButton.setBackground(Color.WHITE);
+        registerButton.setFocusPainted(false);
+        registerButton.setBorderPainted(false);
+        registerButton.setForeground(Color.BLACK);
+
+        welcomeLabel.setForeground(Color.WHITE);
+        welcomeLabel.setFont(new Font("Arial", Font.BOLD, 30));
+
+        textField1.setBackground(Color.DARK_GRAY);
+        textField1.setForeground(Color.WHITE);
+        textField1.setBounds(20, 20, 400, 50);
+        textField1.setFont(new Font("Arial", Font.BOLD, 18));
+
+        cancelButton.setBackground(Color.RED);
+        cancelButton.setForeground(Color.WHITE);
+        cancelButton.setFont(new Font("Arial", Font.BOLD, 20));
+
+        submitButton.setBackground(Color.GREEN);
+        submitButton.setForeground(Color.WHITE);
+        submitButton.setFont(new Font("Arial", Font.BOLD, 20));
+
         textField1.setVisible(false);
         cancelButton.setVisible(false);
         submitButton.setVisible(false);
-        playAsGuestButton.addActionListener(e -> startGame());
+        scoreBoardButton.addActionListener(e -> new ScoreboardWindow());
+
+        playAsGuestButton.addActionListener(e -> startGame("Guest"));
         registerButton.addActionListener(e -> registerForm());
 
         setVisible(true);
@@ -38,6 +71,7 @@ public class Menu extends JFrame {
     private void registerForm() {
         playAsGuestButton.setVisible(false);
         registerButton.setVisible(false);
+        scoreBoardButton.setVisible(false);
         cancelButton.setVisible(true);
         submitButton.setVisible(true);
         textField1.setVisible(true);
@@ -54,7 +88,7 @@ public class Menu extends JFrame {
         String userName = textField1.getText();
         saveUser(userName);
 
-        startGame();
+        startGame(userName);
     }
 
     private void saveUser(String userName) {
@@ -86,15 +120,16 @@ public class Menu extends JFrame {
         textField1.setVisible(false);
         submitButton.setVisible(false);
         cancelButton.setVisible(false);
+        scoreBoardButton.setVisible(true);
     }
 
-    private void startGame() {
+    private void startGame(String userName) {
         JFrame obj = new JFrame("Brick Breaker");
-        Gameplay gameplay = new Gameplay();
+        Gameplay gameplay = new Gameplay(userName, obj);
 
         obj.setContentPane(gameplay);
         obj.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        obj.setSize(700, 600);
+        obj.setSize(708, 600);
         obj.setResizable(false);
         obj.setLocationRelativeTo(null);
         obj.setVisible(true);
