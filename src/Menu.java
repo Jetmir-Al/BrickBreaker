@@ -60,7 +60,7 @@ public class Menu extends JFrame {
         textField1.setVisible(false);
         cancelButton.setVisible(false);
         submitButton.setVisible(false);
-        scoreBoardButton.addActionListener(e -> new ScoreboardWindow());
+        scoreBoardButton.addActionListener(e -> new ScoreBoard());
 
         playAsGuestButton.addActionListener(e -> startGame("Guest"));
         registerButton.addActionListener(e -> registerForm());
