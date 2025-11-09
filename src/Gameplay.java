@@ -36,6 +36,15 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
             col = 7;
             totalBricks = 21;
         }
+//        test last level
+//        else if (lvl == 5) {
+//            row = 6;
+//            col = 8;
+//            speedIncrease = 3;
+//            totalBricks = row * col;
+//            ballXdirection = -2 * speedIncrease;
+//            ballYdirection = -3 * speedIncrease;
+//        }
         map = new MapGenerator(row, col);
         addKeyListener(this);
         setFocusable(true);
@@ -249,10 +258,11 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
 
     private void moveRight() {
         play = true;
-        playerX += 20;
+        playerX += 20 * lvl;
+
     }
     private void moveLeft() {
         play = true;
-        playerX -= 20;
+        playerX -= 20 * lvl;
     }
 }
