@@ -78,7 +78,7 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
         g.fillOval(ballPosX, ballPosY, 20, 20);
 
         if (totalBricks == 0){
-            if (lvl > 5){
+            if (lvl == 5){
 
             play = false;
             ballYdirection = 0;
@@ -87,13 +87,14 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
             g.setFont(new Font("serif", Font.BOLD, 30));
             g.drawString("You won! Score: " + score, 190, 300);
             UserManager.updateScore(userName, score);
+
             }else {
                 play = false;
                 ballYdirection = 0;
                 ballXdirection = 0;
                 g.setColor(Color.RED);
                 g.setFont(new Font("serif", Font.BOLD, 30));
-                g.drawString("You beat this level: " + lvl, 190, 300);
+                g.drawString("You beat level: " + lvl, 190, 300);
 
                 g.setColor(Color.WHITE);
                 g.setFont(new Font("serif", Font.BOLD, 20));
@@ -218,7 +219,7 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
                 map = new MapGenerator(row, col);
                 repaint();
             }
-        } else if (e.getKeyCode() == KeyEvent.VK_ENTER && totalBricks == 0) {
+        } else if (e.getKeyCode() == KeyEvent.VK_ENTER && totalBricks == 0 && lvl != 5) {
             if (!play){
                     lvl++;
                 if (lvl == 2) {
@@ -249,6 +250,10 @@ public class Gameplay extends  JPanel implements KeyListener, ActionListener {
                 play = true;
                 repaint();
             }
+        }else if (e.getKeyCode() == KeyEvent.VK_ENTER && totalBricks == 0 && lvl == 5) {
+                play = false;
+                frame.dispose();
+                new Menu();
         }
     }
 

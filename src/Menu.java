@@ -86,33 +86,12 @@ public class Menu extends JFrame {
 
     private void SubmitUser() {
         String userName = textField1.getText();
-        saveUser(userName);
+
+        UserManager.saveUser(userName);
 
         startGame(userName);
     }
 
-    private void saveUser(String userName) {
-        Gson gson = new Gson();
-        Map<String, User> user = new HashMap<>();
-        File file = new File("users.json");
-
-
-        if (file.exists()) {
-            try (FileReader reader = new FileReader(file)) {
-                user = gson.fromJson(reader, new TypeToken<Map<String, User>>() {}.getType());
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-        }
-        user.put(userName, new User(userName));
-
-        try (FileWriter writer = new FileWriter(file)) {
-            gson.toJson(user, writer);
-            System.out.println("User saved: " + userName);
-        } catch (Exception e) {
-            System.out.println(e);
-         }
-    }
 
     private void ReturnToMenu() {
         playAsGuestButton.setVisible(true);
